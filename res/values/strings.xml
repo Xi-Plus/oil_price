@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">油價小數進位計算器</string>
+    <string name="action_settings">設定</string>
+    <string name="price_text">元</string>
+    <string name="amount_text">L</string>
+    <string name="run_text">計算</string>
+    <string name="price_hint">油價</string>
+    <string name="amount_hint">預計數量</string>
+    <string name="save_hint">至少省</string>
+    <string name="save_text">省</string>
+
+</resources>
