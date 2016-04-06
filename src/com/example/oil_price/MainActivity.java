@@ -48,14 +48,17 @@ public class MainActivity extends ActionBarActivity {
 		double unit=Double.parseDouble(((EditText)findViewById(R.id.price)).getText().toString());
 		double amount=Integer.parseInt(((EditText)findViewById(R.id.amount)).getText().toString());
 		double want_save=Double.parseDouble(((EditText)findViewById(R.id.save)).getText().toString());
-		Integer cnt=0; 
-		for(;cnt<100;amount+=0.01){
-			double price=unit*amount;
+		Integer cnt=0;
+		double price=unit*amount;
+		unit/=100;
+		for(;cnt<100;){
 			double save=price-Math.floor(price);
 			if(save<0.5&&save>=want_save){
 				values.add(String.format("%.02f", amount)+" L 省"+String.format("%.03f", price-Math.floor(price))+"元");
 				cnt++;
 			}
+			price+=unit;
+			amount+=0.01;
 		}
         ListAdapter adapter = new ArrayAdapter<String>(this , android.R.layout.simple_list_item_checked ,values);
         listView.setAdapter(adapter);
