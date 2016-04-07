@@ -40,27 +40,51 @@ public class MainActivity extends ActionBarActivity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	
-	public void run(View view){
-		ListView listView = (ListView)findViewById(R.id.result);
+
+	public void run(View view) {
+		ListView listView = (ListView) findViewById(R.id.result);
 		ArrayList<String> values = new ArrayList<String>();
-//		String[] values;
-		double unit=Double.parseDouble(((EditText)findViewById(R.id.price)).getText().toString());
-		double amount=Integer.parseInt(((EditText)findViewById(R.id.amount)).getText().toString());
-		double want_save=Double.parseDouble(((EditText)findViewById(R.id.save)).getText().toString());
-		Integer cnt=0;
-		double price=unit*amount;
-		unit/=100;
-		for(;cnt<100;){
-			double save=price-Math.floor(price);
-			if(save<0.5&&save>=want_save){
-				values.add(String.format("%.02f", amount)+" L 省"+String.format("%.03f", price-Math.floor(price))+"元");
-				cnt++;
+		boolean ok = true;
+		double unit = 0;
+		try {
+			unit = Double.parseDouble(((EditText) findViewById(R.id.price)).getText().toString());
+			if (unit <= 0) {
+				values.add("油價不可為0");
+				ok = false;
 			}
-			price+=unit;
-			amount+=0.01;
+		} catch (NullPointerException e) {
+			values.add("油價錯誤");
+			ok = false;
+		} catch (NumberFormatException e) {
+			values.add("未填寫油價");
+			ok = false;
 		}
-        ListAdapter adapter = new ArrayAdapter<String>(this , android.R.layout.simple_list_item_checked ,values);
-        listView.setAdapter(adapter);
+		double amount = 0;
+		try {
+			amount = Integer.parseInt(((EditText) findViewById(R.id.amount)).getText().toString());
+		} catch (NullPointerException e) {
+			values.add("數量錯誤");
+			ok = false;
+		} catch (NumberFormatException e) {
+			values.add("未填寫數量");
+			ok = false;
+		}
+		if (ok) {
+			double want_save = Double.parseDouble(((EditText) findViewById(R.id.save)).getText().toString());
+			Integer cnt = 0;
+			double price = unit * amount;
+			unit /= 100;
+			for (; cnt < 100; ) {
+				double save = price - Math.floor(price);
+				if (save < 0.5 && save >= want_save) {
+					values.add(String.format("%.02f", amount) + " L 省" + String.format("%.03f", price - Math.floor(price)) + "元");
+					cnt++;
+				}
+				price += unit;
+				amount += 0.01;
+			}
+		}
+		ListAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_checked, values);
+		listView.setAdapter(adapter);
 	}
 }
