@@ -18,60 +18,75 @@
         android:orientation="vertical" >
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content" >
 
             <EditText
                 android:id="@+id/price"
-                android:layout_width="wrap_content"
+                android:layout_width="130dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:ems="10"
                 android:hint="@string/price_hint"
-                android:inputType="numberDecimal"
-                android:width="60dp" />
+                android:inputType="numberDecimal" />
 
             <TextView
                 android:id="@+id/textView1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:text="@string/price_text" />
 
             <EditText
-                android:id="@+id/amount"
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:ems="10"
+                android:id="@+id/discount"
+                android:hint="@string/discount_hint"
+                android:layout_marginLeft="20dp" />
+
+            <TextView
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView"
+                android:text="@string/price_text" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/amount"
+                android:layout_width="130dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
                 android:hint="@string/amount_hint"
-                android:inputType="number"
-                android:width="80dp" />
+                android:inputType="number" />
 
             <TextView
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:text="@string/amount_text" />
 
             <TextView
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/save_text" />
+                android:text="@string/save_text"
+                android:layout_marginLeft="20dp" />
 
             <EditText
                 android:id="@+id/save"
-                android:layout_width="wrap_content"
+                android:layout_width="130dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
                 android:hint="@string/save_hint"
-                android:inputType="numberDecimal"
-                android:text="0.3"
-                android:width="60dp" >
+                android:inputType="numberDecimal">
 
                 <requestFocus />
             </EditText>
@@ -80,9 +95,7 @@
                 android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:text="@string/price_text" />
-
         </LinearLayout>
 
         <Button

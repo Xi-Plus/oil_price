@@ -2,6 +2,7 @@ package com.example.oil_price;
 
 import android.support.v7.app.ActionBarActivity;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -59,9 +60,15 @@ public class MainActivity extends ActionBarActivity {
 			values.add("未填寫油價");
 			ok = false;
 		}
-		double amount = 0;
+		double discount = 0;
 		try {
-			amount = Integer.parseInt(((EditText) findViewById(R.id.amount)).getText().toString());
+			discount = Double.parseDouble(((EditText) findViewById(R.id.discount)).getText().toString());
+		} catch (NullPointerException e) {
+		} catch (NumberFormatException e) {
+		}
+		double start_amount = 0;
+		try {
+			start_amount = Integer.parseInt(((EditText) findViewById(R.id.amount)).getText().toString());
 		} catch (NullPointerException e) {
 			values.add("數量錯誤");
 			ok = false;
@@ -70,18 +77,36 @@ public class MainActivity extends ActionBarActivity {
 			ok = false;
 		}
 		if (ok) {
-			double want_save = Double.parseDouble(((EditText) findViewById(R.id.save)).getText().toString());
-			Integer cnt = 0;
-			double price = unit * amount;
+			double want_save = 0;
+			try {
+				want_save = Double.parseDouble(((EditText) findViewById(R.id.save)).getText().toString());
+			} catch (NullPointerException e) {
+			} catch (NumberFormatException e) {
+				if (discount == 0) {
+					want_save = 0.4;
+				} else {
+					want_save = 0.8;
+				}
+			}
+			double price_unit = unit * start_amount;
+			double price_discount = discount * start_amount;
 			unit /= 100;
-			for (; cnt < 100; ) {
-				double save = price - Math.floor(price);
-				if (save < 0.5 && save >= want_save) {
-					values.add(String.format("%.02f", amount) + " L 省" + String.format("%.03f", price - Math.floor(price)) + "元");
+			discount /= 100;
+			Integer cnt = 0;
+			for (double amount = start_amount; amount < start_amount + 5; amount += 0.01) {
+				double price_origin = price_unit - price_discount;
+				double price_now = new BigDecimal(price_unit).setScale(0, BigDecimal.ROUND_HALF_UP).doubleValue()
+						- new BigDecimal(price_discount).setScale(0, BigDecimal.ROUND_HALF_UP).doubleValue();
+				double save = price_origin - price_now;
+				if (save >= want_save) {
+					values.add(String.format("%.02f", amount) + " L 省" + String.format("%.03f", save) + "元  價格為" + price_now + "元");
 					cnt++;
 				}
-				price += unit;
-				amount += 0.01;
+				price_unit += unit;
+				price_discount += discount;
+			}
+			if (cnt == 0) {
+				values.add("查無結果，請降低至少省的金額");
 			}
 		}
 		ListAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_checked, values);

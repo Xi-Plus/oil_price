@@ -8,7 +8,8 @@
     <string name="run_text">計算</string>
     <string name="price_hint">油價</string>
     <string name="amount_hint">預計數量</string>
-    <string name="save_hint">至少省</string>
-    <string name="save_text">省</string>
+    <string name="save_hint">至少省金額</string>
+    <string name="save_text">至少省</string>
+    <string name="discount_hint">額外折價</string>
 
 </resources>
