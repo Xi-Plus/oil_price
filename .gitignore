@@ -1,5 +1,9 @@
 *.png
 
+# Android Studio
+.idea/libraries
+.idea/workspace.xml
+
 # Built application files
 *.apk
 *.ap_
