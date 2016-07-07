@@ -1,4 +1,4 @@
-package com.example.oil_price;
+package com.xiplus.oil_price;
 
 import android.support.v7.app.ActionBarActivity;
 

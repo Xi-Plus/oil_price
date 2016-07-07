@@ -1,15 +1,18 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvltZFp4zZaA7rMwvSR7bfEoVxTBJE1j3wjm74lgiDSC01d81sS/y78LXVqKL44NuAMjpz//djvGJ7dD4SI7k/NPqi4h3ObAiQkSDattIRetxUwIGnv+XFZEAHqfiKOeff3oxp0rma1DUWWVUkOHX0GvCdEaCRrYCJxwozBbjWs5AQJqYgYDCDiBSNkVB3PVDWuVLnuBi8chzVJPauy67d5WeLndXB+/aUSq/BMbCiUY4NCm5JjvrU/7+vqxZ2yJcRkcnJ3UJAZGzo0lrz1HzRHl6EpSGZnk6Nl2FH+BIY+9WQFw+Ftt1p4/Ha0Z0duWHSH50sGjSx+7F1JxbjRtgwwIDAQAB'
+        }
+    }
     compileSdkVersion 23
     buildToolsVersion "23.0.3"
-
     defaultConfig {
-        applicationId "com.example.oil_price"
+        applicationId "com.xiplus.oil_price"
         minSdkVersion 8
         targetSdkVersion 21
     }
-
     buildTypes {
         release {
             minifyEnabled false
