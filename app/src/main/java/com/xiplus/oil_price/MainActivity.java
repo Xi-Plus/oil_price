@@ -3,7 +3,10 @@ package com.xiplus.oil_price;
 import android.support.v7.app.AppCompatActivity;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.Locale;
+
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.Menu;
@@ -39,16 +42,17 @@ public class MainActivity extends AppCompatActivity {
 	}
 
 	public void run(View view) {
-		ListView listView = (ListView) findViewById(R.id.result);
-		ArrayList<String> values = new ArrayList<String>();
+		ListView listView = findViewById(R.id.result);
+		ArrayList<String> values = new ArrayList<>();
 		boolean ok = true;
-		double unit = 0;
+		int unit = 0;
 		try {
-			unit = Double.parseDouble(((EditText) findViewById(R.id.price)).getText().toString());
+			unit = (int) (10 * Double.parseDouble(((EditText) findViewById(R.id.price)).getText().toString()));
 			if (unit <= 0) {
 				values.add("油價不可為0");
 				ok = false;
 			}
+			((EditText) findViewById(R.id.price)).setText(String.valueOf(unit / 10.0));
 		} catch (NullPointerException e) {
 			values.add("油價錯誤");
 			ok = false;
@@ -56,57 +60,61 @@ public class MainActivity extends AppCompatActivity {
 			values.add("未填寫油價");
 			ok = false;
 		}
-		double discount = 0;
+
+		int discount = 0;
 		try {
-			discount = Double.parseDouble(((EditText) findViewById(R.id.discount)).getText().toString());
+			discount = (int) (10 * Double.parseDouble(((EditText) findViewById(R.id.discount)).getText().toString()));
+			((EditText) findViewById(R.id.discount)).setText(String.valueOf(discount / 10.0));
 		} catch (NullPointerException e) {
+			// nothing to do
 		} catch (NumberFormatException e) {
+			// nothing to do
 		}
-		double start_amount = 0;
+
+		int start_amount = 0;
 		try {
-			start_amount = Double.parseDouble(((EditText) findViewById(R.id.amount)).getText().toString());
+			start_amount = (int) (100 * Double.parseDouble(((EditText) findViewById(R.id.amount)).getText().toString()));
 		} catch (NullPointerException e) {
 			values.add("數量錯誤");
 			ok = false;
 		} catch (NumberFormatException e) {
-			start_amount = 1.0;
-			((EditText) findViewById(R.id.amount)).setText(Double.toString(start_amount));
+			start_amount = 100;
 		}
+		((EditText) findViewById(R.id.amount)).setText(String.valueOf(start_amount / 100.0));
+
 		if (ok) {
 			double want_save = 0;
 			try {
 				want_save = Double.parseDouble(((EditText) findViewById(R.id.save)).getText().toString());
 			} catch (NullPointerException e) {
+				// nothing to do
 			} catch (NumberFormatException e) {
 				if (discount == 0) {
 					want_save = 0.4;
 				} else {
 					want_save = 0.8;
 				}
-				((EditText) findViewById(R.id.save)).setText(Double.toString(want_save));
+				((EditText) findViewById(R.id.save)).setText(String.valueOf(want_save));
 			}
-			double price_unit = unit * start_amount;
-			double price_discount = discount * start_amount;
-			unit /= 100;
-			discount /= 100;
-			Integer cnt = 0;
-			for (double amount = start_amount; amount < start_amount + 5; amount += 0.01) {
-				double price_origin = price_unit - price_discount;
-				double price_now = new BigDecimal(price_unit).setScale(0, BigDecimal.ROUND_HALF_UP).doubleValue()
-						- new BigDecimal(price_discount).setScale(0, BigDecimal.ROUND_HALF_UP).doubleValue();
-				double save = price_origin - price_now;
+
+			int cnt = 0;
+			for (int amount = start_amount; amount < start_amount + 500; amount += 1) {
+				int price_unit = unit * amount;
+				int price_discount = discount * amount;
+				int price_origin = price_unit - price_discount;
+				double price_now = new BigDecimal(price_unit / 1000.0).setScale(0, RoundingMode.HALF_UP).doubleValue()
+						- new BigDecimal(price_discount / 1000.0).setScale(0, RoundingMode.HALF_UP).doubleValue();
+				double save = price_origin / 1000.0 - price_now;
 				if (save >= want_save) {
-					values.add(String.format("%.02f", amount) + " L 省" + String.format("%.03f", save) + "元  價格為" + price_now + "元");
+					values.add(String.format(Locale.TAIWAN, "%.02f L 省 %.03f 元  價格為 %.0f 元", amount / 100.0, save, price_now));
 					cnt++;
 				}
-				price_unit += unit;
-				price_discount += discount;
 			}
 			if (cnt == 0) {
 				values.add("查無結果，請降低至少省的金額");
 			}
 		}
-		ListAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, values);
+		ListAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, values);
 		listView.setAdapter(adapter);
 	}
 }
