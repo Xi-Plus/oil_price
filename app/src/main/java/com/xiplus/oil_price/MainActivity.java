@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
 				values.add("查無結果，請降低至少省的金額");
 			}
 		}
-		ListAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_checked, values);
+		ListAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, values);
 		listView.setAdapter(adapter);
 	}
 }
