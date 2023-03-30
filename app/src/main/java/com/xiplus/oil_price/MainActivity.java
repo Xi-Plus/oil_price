@@ -69,8 +69,8 @@ public class MainActivity extends AppCompatActivity {
 			values.add("數量錯誤");
 			ok = false;
 		} catch (NumberFormatException e) {
-			values.add("未填寫數量");
-			ok = false;
+			start_amount = 1.0;
+			((EditText) findViewById(R.id.amount)).setText(Double.toString(start_amount));
 		}
 		if (ok) {
 			double want_save = 0;
@@ -83,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
 				} else {
 					want_save = 0.8;
 				}
+				((EditText) findViewById(R.id.save)).setText(Double.toString(want_save));
 			}
 			double price_unit = unit * start_amount;
 			double price_discount = discount * start_amount;
