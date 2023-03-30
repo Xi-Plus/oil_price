@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
 		}
 		double start_amount = 0;
 		try {
-			start_amount = Integer.parseInt(((EditText) findViewById(R.id.amount)).getText().toString());
+			start_amount = Double.parseDouble(((EditText) findViewById(R.id.amount)).getText().toString());
 		} catch (NullPointerException e) {
 			values.add("數量錯誤");
 			ok = false;

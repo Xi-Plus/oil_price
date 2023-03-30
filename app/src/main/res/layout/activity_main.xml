@@ -64,7 +64,7 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:hint="@string/amount_hint"
-                android:inputType="number" />
+                android:inputType="numberDecimal" />
 
             <TextView
                 android:id="@+id/textView2"
