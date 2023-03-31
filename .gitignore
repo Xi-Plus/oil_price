@@ -1,4 +1,5 @@
 # Built application files
+release/
 *.apk
 *.ap_
 
@@ -95,3 +96,4 @@ $RECYCLE.BIN/
 .idea/vcs.xml
 .idea/workspace.xml
 .idea/libraries
+.idea/deploymentTargetDropDown.xml
