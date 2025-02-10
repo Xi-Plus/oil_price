@@ -11,6 +11,8 @@ android {
         applicationId "com.xiplus.oil_price"
         minSdkVersion 14
         targetSdk 34
+        versionName '1.4.0'
+        versionCode 3
     }
     buildTypes {
         release {
