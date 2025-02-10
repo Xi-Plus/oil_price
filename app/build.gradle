@@ -6,11 +6,11 @@ android {
             keyAlias 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvltZFp4zZaA7rMwvSR7bfEoVxTBJE1j3wjm74lgiDSC01d81sS/y78LXVqKL44NuAMjpz//djvGJ7dD4SI7k/NPqi4h3ObAiQkSDattIRetxUwIGnv+XFZEAHqfiKOeff3oxp0rma1DUWWVUkOHX0GvCdEaCRrYCJxwozBbjWs5AQJqYgYDCDiBSNkVB3PVDWuVLnuBi8chzVJPauy67d5WeLndXB+/aUSq/BMbCiUY4NCm5JjvrU/7+vqxZ2yJcRkcnJ3UJAZGzo0lrz1HzRHl6EpSGZnk6Nl2FH+BIY+9WQFw+Ftt1p4/Ha0Z0duWHSH50sGjSx+7F1JxbjRtgwwIDAQAB'
         }
     }
-    compileSdkVersion 33
+    compileSdkVersion 34
     defaultConfig {
         applicationId "com.xiplus.oil_price"
         minSdkVersion 14
-        targetSdkVersion 33
+        targetSdk 34
     }
     buildTypes {
         release {
